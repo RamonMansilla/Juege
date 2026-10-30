@@ -1,16 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
 import { formatMoney } from "@/lib/pricing";
 import type { Product, Promotion } from "@/lib/catalog";
 import { useLanguage, type Locale } from "@/lib/language";
 
-const text: Record<Locale, { title: string; label: string; see: string; available: string; age: string; categories: Record<string, string> }> = {
-  es: { title: "Elige tu plan.", label: "2 ideas para esta noche", see: "Ver producto", available: "Disponible", age: "18+ · con respeto", categories: { "Para conversar": "Para conversar", "Para compartir": "Para compartir", "Para salir": "Para salir" } },
-  en: { title: "Pick your plan.", label: "2 ideas for tonight", see: "View details", available: "Available", age: "18+ · be respectful", categories: { "Para conversar": "To talk", "Para compartir": "To share", "Para salir": "To go out" } },
-  pt: { title: "Escolha seu plano.", label: "2 ideias para hoje", see: "Ver produto", available: "Disponível", age: "18+ · com respeito", categories: { "Para conversar": "Para conversar", "Para compartir": "Para compartilhar", "Para salir": "Para sair" } },
-  fr: { title: "Choisis ton idée.", label: "2 idées pour ce soir", see: "Voir le produit", available: "Disponible", age: "18+ · avec respect", categories: { "Para conversar": "Pour discuter", "Para compartir": "À partager", "Para salir": "Pour sortir" } },
-  ca: { title: "Tria el teu pla.", label: "2 idees per aquesta nit", see: "Veure producte", available: "Disponible", age: "18+ · amb respecte", categories: { "Para conversar": "Per conversar", "Para compartir": "Per compartir", "Para salir": "Per sortir" } },
+const text: Record<Locale, { title: string; label: string; see: string; age: string; categories: Record<string, string>; girls: string; sample: string; perDate: string; favorite: string; prev: string; next: string; plans: string[] }> = {
+  es: { title: "Elige tu plan.", label: "2 ideas para esta noche", see: "Ver producto", age: "18+ · con respeto", categories: { "Para conversar": "Para conversar", "Para compartir": "Para compartir", "Para salir": "Para salir" }, girls: "Compañía para tu noche", sample: "Perfiles de muestra · +18", perDate: "Por cita · tarifa a consultar", favorite: "FAVORITO", prev: "Anterior", next: "Siguiente", plans: ["Cena y conversación", "Paseo por Callao", "Cócteles y charla", "Una noche especial"] },
+  en: { title: "Pick your plan.", label: "2 ideas for tonight", see: "View details", age: "18+ · be respectful", categories: { "Para conversar": "To talk", "Para compartir": "To share", "Para salir": "To go out" }, girls: "Company for your night", sample: "Sample profiles · 18+", perDate: "By appointment · ask for rates", favorite: "FAVORITE", prev: "Previous", next: "Next", plans: ["Dinner and conversation", "Walk around Callao", "Cocktails and a chat", "A special night"] },
+  pt: { title: "Escolha seu plano.", label: "2 ideias para hoje", see: "Ver produto", age: "18+ · com respeito", categories: { "Para conversar": "Para conversar", "Para compartir": "Para compartilhar", "Para salir": "Para sair" }, girls: "Companhia para sua noite", sample: "Perfis de exemplo · 18+", perDate: "Por encontro · consulte valores", favorite: "FAVORITO", prev: "Anterior", next: "Próximo", plans: ["Jantar e conversa", "Passeio pelo Callao", "Drinks e conversa", "Uma noite especial"] },
+  fr: { title: "Choisis ton idée.", label: "2 idées pour ce soir", see: "Voir le produit", age: "18+ · avec respect", categories: { "Para conversar": "Pour discuter", "Para compartir": "À partager", "Para salir": "Pour sortir" }, girls: "De la compagnie pour ta soirée", sample: "Profils de démo · 18+", perDate: "Sur rendez-vous · tarif à demander", favorite: "COUP DE CŒUR", prev: "Précédent", next: "Suivant", plans: ["Dîner et conversation", "Balade à Callao", "Cocktails et discussion", "Une soirée spéciale"] },
+  ca: { title: "Tria el teu pla.", label: "2 idees per aquesta nit", see: "Veure producte", age: "18+ · amb respecte", categories: { "Para conversar": "Per conversar", "Para compartir": "Per compartir", "Para salir": "Per sortir" }, girls: "Companyia per a la nit", sample: "Perfils de mostra · +18", perDate: "Per cita · tarifa a consultar", favorite: "PREFERIT", prev: "Anterior", next: "Següent", plans: ["Sopar i conversa", "Passeig per Callao", "Còctels i conversa", "Una nit especial"] },
 };
 
 const shortDescription: Record<Locale, Record<string, string>> = {
@@ -21,15 +22,23 @@ const shortDescription: Record<Locale, Record<string, string>> = {
   ca: { "mazo-sin-filtro": "Preguntes per trencar el gel.", "kit-sobremesa": "Joc, espelma i playlist per compartir.", "tarjetas-que-tal-si": "Idees breus per triar plegats." },
 };
 const languages: Locale[] = ["es", "en", "pt", "fr", "ca"];
+const profiles = [
+  { name: "Alma", style: "rose" },
+  { name: "Mía", style: "blue" },
+  { name: "Luna", style: "violet" },
+  { name: "Vera", style: "lime" },
+];
 
 export default function HomeClient({ products }: { products: Product[]; promotion?: Promotion | null; demo: boolean }) {
   const { locale, setLocale } = useLanguage();
   const t = text[locale];
+  const carousel = useRef<HTMLDivElement>(null);
   const featured = products.filter((item) => item.is_featured && item.is_available);
   const picks = (featured.length >= 2 ? featured : [...featured, ...products.filter((item) => item.is_available && !featured.some((featuredItem) => featuredItem.id === item.id))]).slice(0, 2);
+  const moveCarousel = (direction: number) => carousel.current?.scrollBy({ left: direction * 290, behavior: "smooth" });
 
   return (
-    <main className="bakery-home">
+    <main className="bakery-home neon-home">
       <header className="bakery-topbar">
         <Link className="bakery-brand" href="/" aria-label="JUEGUE Callao">
           <span className="bakery-mark" aria-hidden="true">✳</span>
@@ -62,6 +71,16 @@ export default function HomeClient({ products }: { products: Product[]; promotio
           </div>
         </article>)}
       </section> : <p className="bakery-empty">Pronto tendremos nuevas ideas.</p>}
+
+      <section className="girls-section" aria-labelledby="girls-heading">
+        <div className="girls-heading"><div><p className="bakery-kicker">JUEGUE · CALLAO</p><h2 id="girls-heading">{t.girls}</h2><p>{t.sample}</p></div><div className="girls-arrows"><button type="button" onClick={() => moveCarousel(-1)} aria-label={t.prev}>←</button><button type="button" onClick={() => moveCarousel(1)} aria-label={t.next}>→</button></div></div>
+        <div className="girls-carousel" ref={carousel}>
+          {profiles.map((profile, index) => <article className={"girl-card girl-" + profile.style} key={profile.name}>
+            <div className="girl-portrait" aria-hidden="true"><span className="portrait-halo" /><svg viewBox="0 0 180 220" role="presentation"><path className="portrait-hair" d="M38 90c-7-48 18-72 52-72s61 24 53 74l-9 58H48z"/><path className="portrait-neck" d="M73 127h34v38H73z"/><ellipse className="portrait-face" cx="90" cy="91" rx="39" ry="48"/><path className="portrait-bangs" d="M52 78c4-38 23-54 41-54 30 0 42 19 41 51-16-2-27-12-35-23-11 15-27 24-47 26z"/><path className="portrait-body" d="M28 220c4-49 22-72 62-72s58 23 62 72z"/><path className="portrait-glow" d="M68 166l22 25 22-25 18 54H50z"/></svg><span className="girl-demo">DEMO</span></div>
+            <div className="girl-copy"><div><h3>{profile.name}</h3><p>{t.plans[index]}</p></div><span className="girl-arrow" aria-hidden="true">↗</span><small>{t.perDate}</small></div>
+          </article>)}
+        </div>
+      </section>
 
       <footer className="bakery-footer"><span>JUEGUE · CALLAO</span><span>{t.age}</span></footer>
     </main>

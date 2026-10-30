@@ -470,3 +470,83 @@ body:has(.bakery-home) { background: var(--bakery-paper); color: var(--bakery-in
 @media (prefers-reduced-motion: reduce) {
   .bakery-product, .bakery-art, .bakery-button { animation: none !important; transition: none !important; }
 }
+
+/* Bring back the provocative neon palette while keeping the bakery-inspired cards. */
+.neon-home {
+  --bakery-paper: #090812;
+  --bakery-ink: #f6f2ff;
+  --bakery-muted: #aca8ba;
+  --bakery-soft: #151321;
+  --bakery-orange: #ff5bc8;
+  --bakery-orange-dark: #d6ff49;
+  --bakery-line: rgba(255,255,255,.12);
+  background: radial-gradient(ellipse at 8% 6%, rgba(255,91,200,.15), transparent 28rem), radial-gradient(ellipse at 92% 28%, rgba(93,241,238,.08), transparent 28rem), #090812;
+}
+body:has(.neon-home) { color-scheme: dark; background: #090812; color: #f6f2ff; }
+.neon-home .bakery-mark { color: #111; background: #d6ff49; box-shadow: 0 0 20px rgba(214,255,73,.45); }
+.neon-home .bakery-brand-name { text-shadow: 0 0 14px rgba(255,91,200,.45); }
+.neon-home .bakery-brand-place, .neon-home .bakery-age, .neon-home .bakery-count { color: #c0b9cb; }
+.neon-home .bakery-language { border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.05); }
+.neon-home .bakery-language button { color: #c0b9cb; }
+.neon-home .bakery-language button.selected { color: #10100d; background: #d6ff49; box-shadow: 0 0 15px rgba(214,255,73,.38); }
+.neon-home .bakery-kicker { color: #ff5bc8; text-shadow: 0 0 16px rgba(255,91,200,.4); }
+.neon-home .bakery-product { border-color: rgba(255,255,255,.13); background: rgba(18,17,29,.9); box-shadow: 0 15px 42px rgba(0,0,0,.25); }
+.neon-home .bakery-artwork { background: radial-gradient(ellipse at 50% 32%, rgba(255,255,255,.12), transparent 35%), linear-gradient(145deg,#302037,#141321 64%,#211728); }
+.neon-home .bakery-artwork::before { background: rgba(255,91,200,.27); }
+.neon-home .bakery-artwork::after { background: rgba(93,241,238,.2); }
+.neon-home .bakery-art-2 .bakery-artwork { background: radial-gradient(ellipse at 50% 32%, rgba(255,255,255,.11), transparent 35%), linear-gradient(145deg,#18343a,#141625 65%,#2a1933); }
+.neon-home .bakery-art-2 .bakery-artwork::before { background: rgba(93,241,238,.24); }
+.neon-home .bakery-art-2 .bakery-artwork::after { background: rgba(255,91,200,.22); }
+.neon-home .bakery-artwork > span { border-color: rgba(255,255,255,.3); color: #d6ff49; background: linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.025)); box-shadow: 0 18px 45px rgba(0,0,0,.5), inset 0 0 30px rgba(255,255,255,.08), 0 0 24px rgba(255,91,200,.12); text-shadow: 0 0 20px rgba(214,255,73,.46); }
+.neon-home .bakery-art-2 .bakery-artwork > span { color: #5df1ee; text-shadow: 0 0 20px rgba(93,241,238,.5); }
+.neon-home .bakery-artwork > i, .neon-home .bakery-category, .neon-home .bakery-description { color: #aaa4b7; }
+.neon-home .bakery-tag { border-color: rgba(214,255,73,.28); color: #d6ff49; background: rgba(9,8,18,.82); }
+.neon-home .bakery-product-copy h2 { color: #f6f2ff; }
+.neon-home .bakery-product-bottom { border-color: rgba(255,255,255,.1); }
+.neon-home .bakery-product-bottom > strong { color: #d6ff49; text-shadow: 0 0 12px rgba(214,255,73,.2); }
+.neon-home .bakery-button { color: #11110e; background: #d6ff49; box-shadow: 0 0 18px rgba(214,255,73,.2); }
+.neon-home .bakery-button:hover { background: #e2ff78; box-shadow: 0 0 24px rgba(214,255,73,.42); }
+.neon-home .girls-section { margin-top: 35px; padding: 22px 20px 20px; border: 1px solid rgba(255,91,200,.22); border-radius: 22px; background: radial-gradient(ellipse at 4% 0%, rgba(255,91,200,.11), transparent 48%), rgba(18,17,29,.8); }
+.neon-home .girls-heading { display: flex; align-items: end; justify-content: space-between; gap: 15px; margin-bottom: 14px; }
+.neon-home .girls-heading .bakery-kicker { margin-bottom: 4px; }
+.neon-home .girls-heading h2 { margin: 0; font: 700 clamp(21px,3vw,29px)/1.05 "Space Grotesk",sans-serif; letter-spacing: -.045em; text-shadow: 0 0 18px rgba(255,91,200,.18); }
+.neon-home .girls-heading > div:first-child > p:last-child { margin: 5px 0 0; color: #aaa4b7; font-size: 10px; }
+.neon-home .girls-arrows { display: flex; gap: 7px; }
+.neon-home .girls-arrows button { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; color: #d6ff49; background: rgba(255,255,255,.04); cursor: pointer; transition: border-color .2s, box-shadow .2s; }
+.neon-home .girls-arrows button:hover { border-color: #ff5bc8; box-shadow: 0 0 14px rgba(255,91,200,.3); }
+.neon-home .girls-carousel { display: grid; grid-auto-columns: minmax(190px, 1fr); grid-auto-flow: column; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: rgba(255,91,200,.45) transparent; padding-bottom: 5px; }
+.neon-home .girl-card { min-width: 0; overflow: hidden; scroll-snap-align: start; border: 1px solid rgba(255,255,255,.12); border-radius: 16px; background: rgba(255,255,255,.035); }
+.neon-home .girl-portrait { height: 185px; position: relative; overflow: hidden; display: grid; place-items: end center; background: radial-gradient(ellipse at 50% 32%, rgba(255,91,200,.22), transparent 48%), linear-gradient(145deg,#30203b,#11111d 65%,#202044); }
+.neon-home .girl-blue .girl-portrait { background: radial-gradient(ellipse at 50% 32%, rgba(93,241,238,.2), transparent 48%), linear-gradient(145deg,#1d3541,#11111d 65%,#192640); }
+.neon-home .girl-violet .girl-portrait { background: radial-gradient(ellipse at 50% 32%, rgba(162,113,255,.24), transparent 48%), linear-gradient(145deg,#302344,#11111d 65%,#251b36); }
+.neon-home .girl-lime .girl-portrait { background: radial-gradient(ellipse at 50% 32%, rgba(214,255,73,.15), transparent 48%), linear-gradient(145deg,#26362f,#11111d 65%,#29233a); }
+.neon-home .portrait-halo { position: absolute; top: 8px; width: 155px; height: 155px; border: 1px solid rgba(255,255,255,.1); border-radius: 50%; box-shadow: 0 0 35px rgba(255,91,200,.16), inset 0 0 25px rgba(255,255,255,.04); }
+.neon-home .girl-blue .portrait-halo { box-shadow: 0 0 35px rgba(93,241,238,.18), inset 0 0 25px rgba(255,255,255,.04); }
+.neon-home .girl-portrait svg { width: min(100%,180px); height: 100%; position: relative; z-index: 1; filter: drop-shadow(0 0 18px rgba(255,91,200,.17)); }
+.neon-home .portrait-hair { fill: #20151f; stroke: rgba(255,91,200,.62); stroke-width: 2; }
+.neon-home .girl-blue .portrait-hair { fill: #131b27; stroke: rgba(93,241,238,.6); }
+.neon-home .girl-violet .portrait-hair { fill: #1a1428; stroke: rgba(181,135,255,.62); }
+.neon-home .girl-lime .portrait-hair { fill: #1e211b; stroke: rgba(214,255,73,.5); }
+.neon-home .portrait-face { fill: #d99c85; stroke: rgba(255,255,255,.2); stroke-width: 1.3; }
+.neon-home .portrait-bangs { fill: #21151f; }
+.neon-home .girl-blue .portrait-bangs { fill: #151b26; }
+.neon-home .girl-violet .portrait-bangs { fill: #1a1428; }
+.neon-home .girl-lime .portrait-bangs { fill: #1e211b; }
+.neon-home .portrait-neck { fill: #c98672; }
+.neon-home .portrait-body { fill: #281a2a; stroke: rgba(255,91,200,.3); stroke-width: 2; }
+.neon-home .girl-blue .portrait-body { fill: #142734; stroke: rgba(93,241,238,.35); }
+.neon-home .girl-violet .portrait-body { fill: #241a37; stroke: rgba(181,135,255,.35); }
+.neon-home .girl-lime .portrait-body { fill: #252a22; stroke: rgba(214,255,73,.3); }
+.neon-home .portrait-glow { fill: none; stroke: rgba(255,255,255,.7); stroke-width: 1.5; }
+.neon-home .girl-demo { position: absolute; z-index: 2; top: 9px; right: 9px; padding: 4px 7px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; color: #fff; background: rgba(9,8,18,.62); font-size: 7px; font-weight: 800; letter-spacing: .1em; }
+.neon-home .girl-copy { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; align-items: center; padding: 10px 11px 11px; }
+.neon-home .girl-copy h3 { margin: 0; font: 700 15px "Space Grotesk",sans-serif; }
+.neon-home .girl-copy p { margin: 3px 0 0; color: #aaa4b7; font-size: 9px; }
+.neon-home .girl-arrow { color: #d6ff49; font-size: 17px; }
+.neon-home .girl-copy small { grid-column: 1/-1; color: #ff8ad9; font-size: 8px; }
+.neon-home .bakery-footer { border-color: rgba(255,255,255,.1); color: #8d879a; }
+@media (max-width: 540px) {
+  .neon-home .girls-section { margin-top: 23px; padding: 16px 12px 13px; border-radius: 18px; }
+  .neon-home .girls-carousel { grid-auto-columns: minmax(170px, 72%); }
+  .neon-home .girl-portrait { height: 170px; }
+}

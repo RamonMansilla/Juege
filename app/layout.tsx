@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { LanguageProvider } from "@/lib/language";
 
 export const metadata: Metadata = {
   title: "JUEGUE Callao · Ideas para la noche",
@@ -14,5 +15,5 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="es"><body>{children}</body></html>;
+  return <html lang="es"><body><LanguageProvider>{children}</LanguageProvider></body></html>;
 }

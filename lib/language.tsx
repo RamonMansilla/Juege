@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-export type Locale = "es" | "en" | "pt";
+export type Locale = "es" | "en" | "pt" | "fr" | "ca";
 type LanguageContextValue = { locale: Locale; setLocale: (locale: Locale) => void };
 const LanguageContext = createContext<LanguageContextValue>({ locale: "es", setLocale: () => {} });
 
@@ -10,7 +10,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocale] = useState<Locale>("es");
   useEffect(() => {
     const saved = window.localStorage.getItem("juegue-locale");
-    if (saved === "es" || saved === "en" || saved === "pt") setLocale(saved);
+    if (saved === "es" || saved === "en" || saved === "pt" || saved === "fr" || saved === "ca") setLocale(saved);
   }, []);
   useEffect(() => {
     document.documentElement.lang = locale;

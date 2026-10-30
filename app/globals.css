@@ -376,3 +376,97 @@ button { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Warm, compact storefront inspired by the bakery reference. */
+.bakery-home {
+  --bakery-paper: #fff9ed;
+  --bakery-ink: #28271f;
+  --bakery-muted: #777466;
+  --bakery-soft: #f6eddc;
+  --bakery-orange: #ed783c;
+  --bakery-orange-dark: #c95528;
+  --bakery-line: #e8ddca;
+  width: min(100% - 36px, 1080px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 18px 0 26px;
+  color: var(--bakery-ink);
+  font-family: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  background: radial-gradient(ellipse at 92% 3%, rgba(240,174,107,.2), transparent 27rem), var(--bakery-paper);
+}
+body:has(.bakery-home) { background: var(--bakery-paper); color: var(--bakery-ink); }
+.bakery-topbar { display: flex; min-height: 48px; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--bakery-line); padding-bottom: 12px; }
+.bakery-brand, .bakery-actions { display: flex; align-items: center; }
+.bakery-brand { gap: 9px; }
+.bakery-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 13px; color: white; background: var(--bakery-orange); box-shadow: 0 5px 14px rgba(213,99,45,.23); font-size: 21px; }
+.bakery-brand-name { font-size: 15px; font-weight: 850; letter-spacing: -.035em; }
+.bakery-brand-place { color: var(--bakery-muted); font-size: 9px; font-weight: 750; letter-spacing: .13em; }
+.bakery-actions { gap: 13px; }
+.bakery-language { border-color: var(--bakery-line); background: rgba(255,255,255,.72); }
+.bakery-language button { color: var(--bakery-muted); padding: 6px 7px; }
+.bakery-language button:hover { color: var(--bakery-orange-dark); }
+.bakery-language button.selected { color: #fff; background: var(--bakery-orange); box-shadow: 0 3px 10px rgba(213,99,45,.2); }
+.bakery-age { color: var(--bakery-muted); font-size: 10px; white-space: nowrap; }
+.bakery-intro { display: flex; align-items: end; justify-content: space-between; gap: 12px; padding: 31px 2px 15px; }
+.bakery-kicker, .bakery-category { margin: 0; color: var(--bakery-orange-dark); font-size: 9px; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+.bakery-intro h1 { margin: 5px 0 0; font: 750 clamp(29px, 5vw, 44px)/1 "DM Sans", "Helvetica Neue", Arial, sans-serif; letter-spacing: -.06em; }
+.bakery-count { padding-bottom: 5px; color: var(--bakery-muted); font-size: 11px; text-align: right; }
+.bakery-products { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+.bakery-product { min-width: 0; display: flex; flex-direction: column; padding: 11px 11px 14px; border: 1.5px solid var(--bakery-line); border-radius: 23px; background: rgba(255,255,255,.84); box-shadow: 0 10px 28px rgba(67,45,22,.045); animation: bakery-arrive .55s cubic-bezier(.2,.7,.25,1) both; }
+.bakery-product:nth-child(2) { animation-delay: .1s; }
+.bakery-product:hover { transform: translateY(-3px); box-shadow: 0 15px 36px rgba(67,45,22,.1); }
+.bakery-art { height: clamp(235px, 31vw, 360px); position: relative; display: block; overflow: hidden; border-radius: 17px; background: var(--bakery-soft); transition: transform .2s, box-shadow .2s; }
+.bakery-art > img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.bakery-tag { position: absolute; left: 10px; bottom: 10px; padding: 6px 9px; border: 1px solid rgba(232,221,202,.9); border-radius: 999px; color: #493626; background: rgba(255,250,239,.92); backdrop-filter: blur(6px); font-size: 9px; font-weight: 800; }
+.bakery-artwork { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; background: radial-gradient(ellipse at 50% 32%, rgba(255,255,255,.92), transparent 34%), linear-gradient(150deg,#f7ead4,#eed6b8); }
+.bakery-artwork::before, .bakery-artwork::after { content: ""; position: absolute; width: 210px; height: 210px; border-radius: 50%; filter: blur(1px); }
+.bakery-artwork::before { top: -90px; right: -45px; background: rgba(237,120,60,.16); }
+.bakery-artwork::after { bottom: -140px; left: -45px; background: rgba(101,123,81,.19); }
+.bakery-art-2 .bakery-artwork { background: radial-gradient(ellipse at 50% 32%, rgba(255,255,255,.92), transparent 34%), linear-gradient(150deg,#e4eee5,#d1e2d5); }
+.bakery-art-2 .bakery-artwork::before { background: rgba(101,123,81,.18); }
+.bakery-art-2 .bakery-artwork::after { background: rgba(237,120,60,.17); }
+.bakery-artwork > span { position: relative; z-index: 1; width: 142px; height: 190px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.92); border-radius: 18px; color: var(--bakery-orange-dark); background: linear-gradient(145deg,rgba(255,255,255,.84),rgba(255,255,255,.35)); box-shadow: 0 18px 40px rgba(90,62,36,.16), inset 0 0 25px rgba(255,255,255,.6); font-size: 65px; transform: rotate(-5deg); }
+.bakery-art-2 .bakery-artwork > span { color: #557754; transform: rotate(5deg); }
+.bakery-artwork > i { position: absolute; bottom: 17px; left: 17px; z-index: 1; color: #73664f; font-size: 8px; font-style: normal; font-weight: 800; letter-spacing: .14em; }
+.bakery-product-copy { padding: 12px 3px 0; }
+.bakery-category { color: var(--bakery-muted); font-size: 8px; }
+.bakery-product-copy h2 { margin: 5px 0 3px; font: 750 21px/1.08 "DM Sans", "Helvetica Neue", Arial, sans-serif; letter-spacing: -.04em; }
+.bakery-description { min-height: 17px; margin: 0; color: var(--bakery-muted); font-size: 11px; line-height: 1.45; }
+.bakery-product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--bakery-line); }
+.bakery-product-bottom > strong { color: var(--bakery-ink); font-size: 15px; font-variant-numeric: tabular-nums; }
+.bakery-button { min-height: 36px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 12px; border-radius: 11px; color: white; background: var(--bakery-orange); font-size: 11px; font-weight: 800; transition: background .15s, transform .15s; }
+.bakery-button:hover { transform: translateY(-1px); background: var(--bakery-orange-dark); }
+.bakery-empty { padding: 28px; border: 1px dashed var(--bakery-line); border-radius: 18px; color: var(--bakery-muted); text-align: center; }
+.bakery-footer { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; padding: 12px 2px 0; border-top: 1px solid var(--bakery-line); color: var(--bakery-muted); font-size: 9px; }
+@keyframes bakery-arrive { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 540px) {
+  .bakery-home { width: min(100% - 28px, 420px); padding-top: 12px; }
+  .bakery-topbar { min-height: 43px; }
+  .bakery-brand { gap: 6px; }
+  .bakery-mark { width: 34px; height: 34px; border-radius: 11px; }
+  .bakery-brand-name { font-size: 13px; }
+  .bakery-brand-place { font-size: 8px; }
+  .bakery-actions { gap: 7px; }
+  .bakery-age { display: none; }
+  .bakery-language { gap: 0; padding: 2px; }
+  .bakery-language button { padding: 5px 5px; font-size: 8px; }
+  .bakery-intro { padding-top: 27px; }
+  .bakery-intro h1 { font-size: clamp(27px, 8vw, 36px); }
+  .bakery-count { max-width: 90px; font-size: 9px; }
+  .bakery-products { gap: 9px; }
+  .bakery-product { padding: 7px 7px 10px; border-radius: 17px; }
+  .bakery-art { height: clamp(185px, 57vw, 255px); border-radius: 12px; }
+  .bakery-artwork > span { width: 96px; height: 134px; border-radius: 14px; font-size: 45px; }
+  .bakery-artwork > i { bottom: 10px; left: 10px; font-size: 6px; }
+  .bakery-tag { left: 7px; bottom: 7px; padding: 5px 7px; font-size: 7px; }
+  .bakery-product-copy { padding-top: 9px; }
+  .bakery-category { font-size: 6px; letter-spacing: .08em; }
+  .bakery-product-copy h2 { font-size: clamp(13px, 4vw, 17px); }
+  .bakery-description { min-height: 28px; font-size: 9px; }
+  .bakery-product-bottom { align-items: start; flex-direction: column; margin-top: 7px; padding-top: 7px; }
+  .bakery-product-bottom > strong { font-size: 12px; }
+  .bakery-button { min-height: 31px; width: 100%; font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bakery-product, .bakery-art, .bakery-button { animation: none !important; transition: none !important; }
+}

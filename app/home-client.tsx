@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { formatMoney } from "@/lib/pricing";
-import type { Product, Promotion } from "@/lib/catalog";
+import type { JuegueProfile, Product, Promotion } from "@/lib/catalog";
 import { useLanguage, type Locale } from "@/lib/language";
 
 const text: Record<Locale, { title: string; label: string; see: string; age: string; categories: Record<string, string>; girls: string; sample: string; perDate: string; favorite: string; prev: string; next: string; plans: string[] }> = {
@@ -29,7 +29,7 @@ const profiles = [
   { name: "Vera", style: "lime" },
 ];
 
-export default function HomeClient({ products }: { products: Product[]; promotion?: Promotion | null; demo: boolean }) {
+export default function HomeClient({ products, profiles }: { products: Product[]; promotion?: Promotion | null; profiles: JuegueProfile[]; demo: boolean }) {
   const { locale, setLocale } = useLanguage();
   const t = text[locale];
   const carousel = useRef<HTMLDivElement>(null);
@@ -75,9 +75,9 @@ export default function HomeClient({ products }: { products: Product[]; promotio
       <section className="girls-section" aria-labelledby="girls-heading">
         <div className="girls-heading"><div><p className="bakery-kicker">JUEGUE · CALLAO</p><h2 id="girls-heading">{t.girls}</h2><p>{t.sample}</p></div><div className="girls-arrows"><button type="button" onClick={() => moveCarousel(-1)} aria-label={t.prev}>←</button><button type="button" onClick={() => moveCarousel(1)} aria-label={t.next}>→</button></div></div>
         <div className="girls-carousel" ref={carousel}>
-          {profiles.map((profile, index) => <article className={"girl-card girl-" + profile.style} key={profile.name}>
-            <div className="girl-portrait" aria-hidden="true"><span className="portrait-halo" /><svg viewBox="0 0 180 220" role="presentation"><path className="portrait-hair" d="M38 90c-7-48 18-72 52-72s61 24 53 74l-9 58H48z"/><path className="portrait-neck" d="M73 127h34v38H73z"/><ellipse className="portrait-face" cx="90" cy="91" rx="39" ry="48"/><path className="portrait-bangs" d="M52 78c4-38 23-54 41-54 30 0 42 19 41 51-16-2-27-12-35-23-11 15-27 24-47 26z"/><path className="portrait-body" d="M28 220c4-49 22-72 62-72s58 23 62 72z"/><path className="portrait-glow" d="M68 166l22 25 22-25 18 54H50z"/></svg><span className="girl-demo">DEMO</span></div>
-            <div className="girl-copy"><div><h3>{profile.name}</h3><p>{t.plans[index]}</p></div><span className="girl-arrow" aria-hidden="true">↗</span><small>{t.perDate}</small></div>
+          {profiles.map((profile, index) => <article className={"girl-card girl-" + (["rose", "blue", "violet", "lime"][index % 4])} key={profile.id}>
+            <div className="girl-portrait" aria-hidden="true"><span className="portrait-halo" />{profile.media_urls[0] && /\.(mp4|webm)(\?|$)/i.test(profile.media_urls[0]) ? <video src={profile.media_urls[0]} autoPlay muted loop playsInline /> : profile.media_urls[0] ? <img src={profile.media_urls[0]} alt="" /> : <svg viewBox="0 0 180 220" role="presentation"><path className="portrait-hair" d="M38 90c-7-48 18-72 52-72s61 24 53 74l-9 58H48z"/><path className="portrait-neck" d="M73 127h34v38H73z"/><ellipse className="portrait-face" cx="90" cy="91" rx="39" ry="48"/><path className="portrait-bangs" d="M52 78c4-38 23-54 41-54 30 0 42 19 41 51-16-2-27-12-35-23-11 15-27 24-47 26z"/><path className="portrait-body" d="M28 220c4-49 22-72 62-72s58 23 62 72z"/><path className="portrait-glow" d="M68 166l22 25 22-25 18 54H50z"/></svg>}<span className="girl-demo">{profile.id.startsWith("demo-") ? "DEMO" : "18+"}</span></div>
+            <div className="girl-copy"><div><h3>{profile.name}</h3><p>{profile.appointment_type || profile.headline || t.plans[index % t.plans.length]}</p></div><span className="girl-arrow" aria-hidden="true">↗</span><small>{profile.rate_label || t.perDate}</small></div>
           </article>)}
         </div>
       </section>

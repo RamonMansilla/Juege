@@ -10,7 +10,7 @@ Requiere Node.js 20 o superior.
 2. Ejecuta npm install.
 3. Ejecuta npm run dev y abre http://localhost:3000.
 
-Sin credenciales, la portada funciona en modo de vista previa. Checkout, administración, IA y cobros reales permanecen cerrados.
+Sin credenciales, la portada funciona en modo de vista previa. Checkout, el panel privado `/admin`, el asistente de catálogo y los cobros reales permanecen cerrados. El editor público `/clientes30` requiere ejecutar su migración y configurar Supabase; no pide contraseña por decisión del proyecto.
 
 ## Base de datos y acceso de tienda
 
@@ -60,3 +60,11 @@ Consulta .env.example. No guardes claves reales en Git, navegador, capturas ni t
     npm run build
 
 La app no contiene credenciales de producción. Un pago, una carga persistente, el inicio de sesión, la llamada a la IA y el aviso externo solo se pueden validar después de configurar las cuentas y secretos correspondientes.
+
+## Perfiles del carrusel y panel clientes30
+
+El panel público `/clientes30` administra perfiles de muestra/acompañía y permite subir hasta 6 imágenes o videos por perfil. La interfaz rechaza videos de más de 10 segundos y archivos de más de 20 MB. El consentimiento 18+ se confirma al guardar.
+
+Para guardar perfiles y archivos en línea, configura las variables de Supabase del ejemplo en Vercel y ejecuta `supabase/migrations/002_profiles.sql`. El asistente requiere `OPENAI_API_KEY` y opcionalmente `OPENAI_MODEL`. El asistente crea borradores; no publica automáticamente.
+
+`/clientes30` y su API son deliberadamente públicos y no requieren contraseña. Cualquier visitante que conozca la dirección puede cambiar, publicar o borrar perfiles y medios, y puede gastar el límite de uso del asistente. No guardes datos privados, teléfonos, direcciones exactas ni material sin autorización en este panel.

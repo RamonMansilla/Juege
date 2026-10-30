@@ -24,6 +24,26 @@ export type Promotion = {
   image_url: string | null;
 };
 
+export type JuegueProfile = {
+  id: string;
+  slug: string;
+  name: string;
+  headline: string;
+  description: string;
+  appointment_type: string;
+  rate_label: string;
+  media_urls: string[];
+  is_available: boolean;
+  is_published: boolean;
+};
+
+const demoProfiles: JuegueProfile[] = [
+  { id: "demo-alma", slug: "alma", name: "Alma", headline: "Compañía para una buena conversación.", description: "Perfil ilustrativo de muestra.", appointment_type: "Cena y conversación", rate_label: "Tarifa a consultar", media_urls: [], is_available: true, is_published: true },
+  { id: "demo-mia", slug: "mia", name: "Mía", headline: "Un paseo y una charla tranquila.", description: "Perfil ilustrativo de muestra.", appointment_type: "Paseo por Callao", rate_label: "Tarifa a consultar", media_urls: [], is_available: true, is_published: true },
+  { id: "demo-luna", slug: "luna", name: "Luna", headline: "Una salida con un toque especial.", description: "Perfil ilustrativo de muestra.", appointment_type: "Cócteles y conversación", rate_label: "Tarifa a consultar", media_urls: [], is_available: true, is_published: true },
+  { id: "demo-vera", slug: "vera", name: "Vera", headline: "Planifica una noche especial.", description: "Perfil ilustrativo de muestra.", appointment_type: "Una noche especial", rate_label: "Tarifa a consultar", media_urls: [], is_available: true, is_published: true },
+];
+
 const demoProducts: Product[] = [
   { id: "sample-1", slug: "mazo-sin-filtro", title: "Mazo Sin Filtro", description: "Preguntas curiosas para soltar la primera risa y dejar que la conversación encuentre su camino.", category: "Para conversar", duration_label: "30 cartas", price_clp: 8990, photo_urls: [], is_available: true, is_featured: true, is_published: true },
   { id: "sample-2", slug: "kit-sobremesa", title: "Kit Sobremesa", description: "Un pequeño kit para alargar la charla: juego de mesa, velita y una playlist para compartir.", category: "Para compartir", duration_label: "Un plan para dos", price_clp: 14990, photo_urls: [], is_available: true, is_featured: true, is_published: true },
@@ -47,6 +67,14 @@ export async function getCatalog(): Promise<Product[]> {
   const { data, error } = await client.from("products").select("id,slug,title,description,category,duration_label,price_clp,photo_urls,is_available,is_featured,is_published").eq("is_published", true).order("is_featured", { ascending: false }).order("created_at", { ascending: false });
   if (error) return [];
   return (data || []) as Product[];
+}
+
+export async function getProfiles(): Promise<JuegueProfile[]> {
+  const client = publicClient();
+  if (!client) return demoProfiles;
+  const { data, error } = await client.from("profiles").select("id,slug,name,headline,description,appointment_type,rate_label,media_urls,is_available,is_published").eq("is_published", true).eq("is_available", true).order("created_at", { ascending: false });
+  if (error) return demoProfiles;
+  return (data || []) as JuegueProfile[];
 }
 
 export async function getProduct(slug: string): Promise<Product | null> {
